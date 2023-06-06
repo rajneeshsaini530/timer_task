@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:task_eliteware/utils/validator.dart';
 import 'package:task_eliteware/view/widgets/common_button_widget.dart';
 import 'package:task_eliteware/view/widgets/common_text_field.dart';
-import 'package:task_eliteware/view/widgets/progress_dialog.dart';
 import 'package:task_eliteware/view_model/login_view_model.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -47,6 +46,7 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(height: 40.0),
               CommonButton(
                 onPressed: () {
+                  ///Validate the form
                   if (loginViewModel.formKey.currentState!.validate()) {
                     // ProgressDialog.showProgressDialog();
                     loginViewModel.login().then((value) {

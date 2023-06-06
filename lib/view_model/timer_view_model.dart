@@ -11,6 +11,8 @@ class TimerViewModel extends GetxController {
 
   String strDigits(int n) => n.toString().padLeft(2, '0');
 
+  ///Start the timer for Timer
+  ///[context] build context for the timer picker
   void startTimer(BuildContext context) async {
     stopTimer();
     TimeOfDay initialTime = TimeOfDay.now();
@@ -18,36 +20,43 @@ class TimerViewModel extends GetxController {
       context: context,
       initialTime: initialTime,
     );
-    int minuts = (pickedTime!.hour * 60) + pickedTime.minute;
-    print('Selected time -- ${pickedTime.minute}');
-    timerDuration.value = Duration(minutes: minuts);
+    int minutes = (pickedTime!.hour * 60) + pickedTime.minute;
+    timerDuration.value = Duration(minutes: minutes);
     update();
+
+    ///Start the count down timer
     countdownTimer =
         Timer.periodic(const Duration(seconds: 1), (_) => setCountDown());
   }
 
+  ///Start the stop watch timer
   void startStopWatch() async {
     stopStopWatchTimer();
     stopWatchTimer = Timer.periodic(
         const Duration(seconds: 1), (_) => setIncreaseStopWatch());
   }
 
+  ///Stop the count down timer for Timer
   void stopTimer() {
     if (countdownTimer != null) {
       countdownTimer!.cancel();
     }
   }
 
+  ///Stop the timer for stop watch
   void stopStopWatchTimer() {
     if (stopWatchTimer != null) {
       stopWatchTimer!.cancel();
     }
   }
 
+  ///Set the count down for Timer
   void setCountDown() {
     final seconds = timerDuration.value.inSeconds - 1;
     if (seconds < 0) {
       countdownTimer!.cancel();
+
+      ///Show the alert dialog on time completion
       showAlertDialog(Get.context!);
     } else {
       timerDuration.value = Duration(seconds: seconds);
@@ -55,6 +64,7 @@ class TimerViewModel extends GetxController {
     }
   }
 
+  ///Set the stop watch increment timer
   void setIncreaseStopWatch() {
     final seconds = stopWatchDuration.value.inSeconds + 1;
     if (seconds < 0) {
@@ -66,11 +76,14 @@ class TimerViewModel extends GetxController {
     }
   }
 
+  ///Reset the stop watch
   resetStopWatch() {
     stopWatchDuration.value = const Duration(seconds: 0);
     update();
   }
 
+  ///Show the alert dialog
+  ///[context] build context to show the dialog
   showAlertDialog(BuildContext context) {
     showDialog(
       context: context,

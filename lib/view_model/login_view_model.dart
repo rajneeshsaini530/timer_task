@@ -17,6 +17,7 @@ class LoginViewModel extends GetxController {
     super.onInit();
   }
 
+  ///login API call method
     Future<bool> login() async {
     try {
       // call the POST api call

@@ -1,4 +1,6 @@
 class Validator {
+  ///Password validation
+  ///[value] Password for validation
   static String? validatePassword(String value) {
     RegExp regex =
         RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
@@ -13,6 +15,8 @@ class Validator {
     }
   }
 
+  ///Email validation
+  /// [value] email for validation
   static String? validateEmail(String value) {
     RegExp regex = RegExp(
         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
